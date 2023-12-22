@@ -104,44 +104,6 @@ export const EliminarUsuario = async (peticion, respuesta) => {
     }
 };
 
-/*export const EliminarUsuario = async (peticion, respuesta) => {
 
-    try {
-        const { id } = peticion.params;
-        const [results] = await pool.query('SELECT * FROM user WHERE id = ?', [id]);
-
-        if (results.length > 0) {
-            // La eliminación fue exitosa
-            const [results] = await pool.query('DELETE  FROM user WHERE id = ?', [id]);
-            respuesta.json({ message: `Usuario con nombre ${id} eliminado exitosamente` });
-        } else {
-            // No se encontró un usuario con ese nombre
-            respuesta.status(404).json({ message: `No se encontró un usuario con telefono ${id}` });
-        
-        }
-    } catch (error) {
-        console.error('Error al eliminar usuario:', error);
-        respuesta.status(500).json({ message: '¡Algo salió mal al intentar eliminar el usuario!' });
-    }
-};*/
-
-/*export const EliminarUsuario = async (peticion, respuesta) => {
-    const { telefono } = peticion.body;
-
-    try {
-        const [result] = await pool.query('DELETE FROM user WHERE telefono = ?', [telefono]);
-
-        if (result.affectedRows > 0) {
-            // La eliminación fue exitosa
-            respuesta.json({ message: `Usuario con telefono ${telefono} eliminado exitosamente` });
-        } else {
-            // No se encontró un usuario con ese telefono
-            respuesta.status(404).json({ message: `No se encontró un usuario con telefono ${telefono}` });
-        }
-    } catch (error) {
-        console.error('Error al eliminar usuario:', error);
-        respuesta.status(500).json({ message: '¡Algo salió mal al intentar eliminar el usuario!' });
-    }
-};*/
 
 
