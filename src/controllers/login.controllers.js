@@ -9,7 +9,7 @@ export const ObtenerUsuarios = async (peticion, respuesta) => {
         //console.log(employees[0])
         respuesta.json(filas);
     } catch (error) {
-        return res.status(500).json({ "message": "¡Algo esta mal!" })
+        return respuesta.status(500).json({ "message": "¡Algo esta mal!" })
     }
 }
 
@@ -54,7 +54,7 @@ export const IngresarLogin = async (peticion, respuesta) => {
         const contrasenaCorrecta = await bcryptjs.compare(contrasena, filas[0].contrasena);
 
         if (contrasenaCorrecta) {
-            respuesta.send({ "message": "Inicio de sesión exitoso", nombre, contrasenaCorrecta});
+            respuesta.status(200).json({ 'dataUser': filas[0] });
         } else {
             respuesta.status(401).json({ "message": "algo esta mal" });
         }
