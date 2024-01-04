@@ -17,7 +17,7 @@ export const InsertarUsuarios = async (peticion, respuesta) => {
     try {
         const { nombre, email, telefono, contrasena } = peticion.body
 
-        const [validarUsuario] = await pool.query('SELECT * FROM user WHERE telefono = ?', [telefono]);
+        const [validarUsuario] = await pool.query('SELECT * FROM user WHERE telefono = ? OR nombre = ? OR email', [telefono, nombre, email]);
 
         if (validarUsuario.length > 0) {
             return respuesta.status(400).json({ "message": "El usuario a insertar ya existe"})
@@ -54,7 +54,7 @@ export const IngresarLogin = async (peticion, respuesta) => {
         const contrasenaCorrecta = await bcryptjs.compare(contrasena, filas[0].contrasena);
 
         if (contrasenaCorrecta) {
-            respuesta.status(200).json({ 'dataUser': filas[0] });
+                        respuesta.status(200).json({ 'dataUser': filas[0] });
         } else {
             respuesta.status(401).json({ "message": "algo esta mal" });
         }
