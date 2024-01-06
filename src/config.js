@@ -11,7 +11,7 @@ export const DB_HOST = 'localhost'
 
 export const DB_PORT = 3306
 
-export const DB_DATABASE = 'pruebalogin'
+export const DB_DATABASE = 'prueba2'
 
 
 
