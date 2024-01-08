@@ -42,9 +42,9 @@ export const InsertarUsuarios = async (peticion, respuesta) => {
 
 export const IngresarLogin = async (peticion, respuesta) => {
     try {
-        const { nombre, contrasena } = peticion.body;
+        const { email, contrasena } = peticion.body;
 
-        const [filas] = await pool.query('SELECT * FROM user WHERE nombre = ?', [nombre]);
+        const [filas] = await pool.query('SELECT * FROM user WHERE email = ?', [email]);
 
         if (filas.length === 0) {
         
