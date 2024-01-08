@@ -38,7 +38,7 @@ export const InsertarUsuarios = async (peticion, respuesta) => {
         console.log(error)
         return respuesta.status(500).json({ "message": "¡Algo esta mal!" })
     }
-}
+};
 
 export const IngresarLogin = async (peticion, respuesta) => {
     try {

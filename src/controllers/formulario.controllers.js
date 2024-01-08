@@ -12,20 +12,20 @@ export const RegistrarFormulario = async (peticion, respuesta) => {
     const documentoPDF = peticion.file.buffer;
 
     // Inserta el documento en la base de datos
-    const [result] = await pool.query('INSERT INTO Documentos (nombre, fechaRadicacion, dependencia, asunto, documentoPDF) VALUES (?, ?, ?, ?, ?)', [nombre, fechaRadicacion, dependencia, asunto, documentoPDF]);
+    const [result] = await pool.query('INSERT INTO documentos (nombre, fechaRadicacion, dependencia, asunto, documentoPDF) VALUES (?, ?, ?, ?, ?)', [nombre, fechaRadicacion, dependencia, asunto, documentoPDF]);
 
-    const insertId = result.insertId;
-
-    respuesta.status(201).json({
-      message: 'Documento registrado con éxito',
-      id: insertId,
+    console.log(result)
+    respuesta.send({
+      "message": "Documento registrado con exito",
+      "id": result.insertId,
       nombre,
       fechaRadicacion,
       dependencia,
-      asunto,
-    });
+      asunto
+    })
+
   } catch (error) {
-    console.error(error);
+    console.log(error);
     respuesta.status(500).json({ message: '¡Algo salió mal al registrar el documento!' });
   }
 };
