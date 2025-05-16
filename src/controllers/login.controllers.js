@@ -26,7 +26,6 @@ export const InsertarUsuarios = async (peticion, respuesta) => {
         const contrasenaEcriptada = await bcryptjs.hash(contrasena, 8);
         const [filas] = await pool.query('INSERT INTO user (nombre, email, telefono, contrasena, id_rol) VALUES(?,?,?,?,?)', [nombre, email, telefono, contrasenaEcriptada, id_rol])
 
-        console.log(filas)
         respuesta.send({
             "message": "empleado registrado con exito",
             "id": filas.insertId,

@@ -1,5 +1,7 @@
 import express from 'express';
-import  userRutas from './routes/login.routes.js'
+import userRoutes from './routes/login.routes.js'
+import documentsRoutes from './routes/documents.routes.js'
+import usersRoutes from './routes/users.routes.js'
 import cors from 'cors'
 
 
@@ -10,7 +12,9 @@ app.use(cors());
 app.use(express.json());
 
 
-app.use(userRutas);
+app.use(userRoutes);
+app.use(documentsRoutes);
+app.use(usersRoutes);
 
 /*app.use(employeesRoutes);*/
 
