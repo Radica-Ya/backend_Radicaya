@@ -2,6 +2,7 @@ import { pool } from '../db.js';
 import fs from 'fs';
 import path from 'path';
 import moment from 'moment';
+import { sendEmail } from '../reusable/emailService.js';
 
 export const RegisterDocuments = async (req, res) => {
     try {
@@ -38,12 +39,12 @@ export const EditDocuments = async (req, res) => {
 
         const [rows] = await pool.query('UPDATE documentos SET id_usuario = ?, id_dependencia = ?, fecha_solicitud = ?, asunto = ?, archivo = ?, archivo_2 = ? WHERE id = ?',
             [
-                user_id, 
-                dependence, 
-                date, 
-                notes, 
-                fileName1, 
-                fileName2, 
+                user_id,
+                dependence,
+                date,
+                notes,
+                fileName1,
+                fileName2,
                 id
             ]);
 
@@ -60,7 +61,7 @@ export const EditDocuments = async (req, res) => {
 
 export const ResponseRequest = async (req, res) => {
     try {
-        const { mensaje, id_usuario, id_documento } = req.body
+        const { mensaje, id_usuario, id_documento, nombre_usuario, email_usuario } = req.body
 
         const code = generarCodigoUnico(7);
 
@@ -74,6 +75,12 @@ export const ResponseRequest = async (req, res) => {
                 'UPDATE documentos SET id_estado = 2 WHERE id = ?',
                 [id_documento]
             );
+
+            await sendEmail({
+                to: email_usuario,
+                subject: '📄 Hemos dado respuesta a tu solicitud',
+                text: `Hola ${nombre_usuario}, tu solicitud con código ${code} ha sido registrada con el mensaje:\n\n"${mensaje}"\n\nGracias por usar nuestro servicio.`
+            });
 
             res.status(200).json({ result: true, message: 'Solicitud creado y actualizado exitosamente' });
         } else {
