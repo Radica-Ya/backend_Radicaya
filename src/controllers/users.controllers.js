@@ -14,3 +14,19 @@ export const GetListUsers = async (req, res) => {
         return res.status(500).json({ "message": "¡Algo esta mal!" })
     }
 }
+
+export const changeRoleUser = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const [rows] = await pool.query('UPDATE user SET id_rol = 1 WHERE id = ?', [id]);
+
+        if (rows.affectedRows > 0) {
+            res.status(200).json({ result: true, message: 'Rol actualizado correctamente' });
+        } else {
+            res.status(404).json({ result: false, message: 'Usuario no encontrado' });
+        }
+    } catch (error) {
+        return res.status(500).json({ "message": "¡Algo esta mal!" })
+    }
+}
